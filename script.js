@@ -10,10 +10,6 @@ class Book {
     this.author = author;
     this.pages = pages;
     this.status = status;
-    this.info = () => {
-      return `${title} by ${author}, ${pages} pages,
-       ${status ? "readed" : "not read yet"}`;
-    };
   }
 }
 
@@ -28,25 +24,36 @@ function clearField(element) {
   element.value = "";
 }
 
-function createBook(book) {
+function createCardBook(book) {
   const cardBook = document.createElement("div");
+  const buttonsContainer = document.createElement("div");
+  const textContainer = document.createElement("div");
   const bookTitle = document.createElement("p");
   const bookAuthor = document.createElement("p");
   const bookPages = document.createElement("p");
   const removeButton = document.createElement("button");
+  const statusButton = document.createElement("button");
 
   cardBook.dataset.id = book.id;
   cardBook.setAttribute("class", "card-book");
+
+  buttonsContainer.setAttribute("class", "button-container");
+  textContainer.setAttribute("class", "text-container");
+
   removeButton.setAttribute("class", "remove-btn");
-  removeButton.onclick = (event) => deleteBook(event);
+  removeButton.onclick = (book) => deleteBook(book);
+  removeButton.textContent = "Delete";
 
-  removeButton.textContent = "X";
-  bookTitle.textContent = book.info();
+  statusButton.setAttribute("class", "status-btn");
+  statusButton.textContent = "Read";
+
+  bookTitle.textContent = `"${book.title}"`;
   bookAuthor.textContent = book.author;
-  bookPages.textContent = book.pages;
+  bookPages.textContent = `${book.pages} Pages`;
 
-  cardBook.append(bookTitle);
-  cardBook.appendChild(removeButton);
+  cardBook.append(textContainer, buttonsContainer);
+  textContainer.append(bookTitle, bookAuthor, bookPages);
+  buttonsContainer.append(statusButton, removeButton);
   $booksContainer.appendChild(cardBook);
 }
 
@@ -70,7 +77,7 @@ function addBookToLibrary(array) {
 }
 
 function deleteBook(event) {
-  const elementId = event.target.parentNode.dataset.id;
+  const elementId = event.target.parentNode.parentNode.dataset.id;
   bookLibrary.splice(elementId, 1);
 
   removeChildren($booksContainer);
@@ -80,7 +87,7 @@ function deleteBook(event) {
 function showBooks(array) {
   array.forEach((book, i) => {
     book.id = i;
-    createBook(book);
+    createCardBook(book);
   });
 }
 
