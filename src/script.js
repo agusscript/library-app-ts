@@ -27,6 +27,12 @@ function clearField(element) {
   element.value = "";
 }
 
+function removeChildren(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+}
+
 function deleteBook(book) {
   const elementId = book.target.parentNode.parentNode.dataset.id;
   bookLibrary.splice(elementId, 1);
@@ -108,12 +114,6 @@ function showBooks(array) {
     book.id = i;
     createCardBook(book);
   });
-}
-
-function removeChildren(element) {
-  while (element.firstChild) {
-    element.removeChild(element.firstChild);
-  }
 }
 
 document.querySelector(".add-btn").onclick = () => {

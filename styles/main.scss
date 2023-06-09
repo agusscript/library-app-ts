@@ -1,0 +1,118 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 80%;
+
+  h1 {
+    font-weight: normal;
+    font-size: 2.8rem;
+    color: darkturquoise;
+  }
+}
+
+form {
+  margin-top: 2rem;
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    letter-spacing: 0.05rem;
+    color: rgb(110, 110, 110);
+
+    input {
+      margin-top: 0.5rem;
+      padding: 0 10px;
+      outline: none;
+      border: 1px solid rgb(189, 189, 189);
+      height: 36px;
+      width: 280px;
+      border-radius: 0.3rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.05rem;
+    }
+
+    #pages {
+      width: 80px;
+    }
+
+    input:focus {
+      border-color: darkturquoise;
+    }
+  }
+
+  .add-btn {
+    height: 38px;
+    padding: 0 1rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.08rem;
+    border: none;
+    color: white;
+    background-color: darkturquoise;
+    border-radius: 0.3rem;
+    transition: all 0.3s;
+  }
+
+  .add-btn:hover {
+    cursor: pointer;
+    background-color: rgb(1, 177, 180);
+  }
+}
+
+.books-container {
+  margin: 3rem 0;
+
+  .card-book {
+    margin: 1rem 0;
+    padding: 0.2rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    gap: 1rem;
+    letter-spacing: 0.06rem;
+    background-color: whitesmoke;
+    border-radius: 0.3rem;
+    border: 1px solid rgb(189, 189, 189);
+
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+
+      button {
+        height: 38px;
+        padding: 0 1rem;
+        font-size: 0.9rem;
+        letter-spacing: 0.08rem;
+        border: none;
+        color: white;
+        background-color: crimson;
+        border-radius: 0.3rem;
+        transition: all 0.3s;
+        cursor: pointer;
+      }
+
+      .status-btn {
+        background-color: mediumseagreen;
+      }
+
+      .status-btn:hover {
+        background-color: rgb(17, 124, 65);
+      }
+
+      .remove-btn:hover {
+        background-color: rgb(185, 1, 38);
+      }
+    }
+  }
+}
