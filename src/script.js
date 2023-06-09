@@ -10,6 +10,9 @@ class Book {
     this.author = author;
     this.pages = pages;
     this.status = status;
+    this.textButtonStatus = status
+      ? (this.textButtonStatus = "Read")
+      : (this.textButtonStatus = "Not Read");
   }
 }
 
@@ -22,6 +25,29 @@ let bookLibrary = [
 
 function clearField(element) {
   element.value = "";
+}
+
+function deleteBook(book) {
+  const elementId = book.target.parentNode.parentNode.dataset.id;
+  bookLibrary.splice(elementId, 1);
+
+  removeChildren($booksContainer);
+  showBooks(bookLibrary);
+}
+
+function changeButtonStatus(book) {
+  const elementId = book.target.parentNode.parentNode.dataset.id;
+
+  if (bookLibrary[elementId].status) {
+    bookLibrary[elementId].status = false;
+    bookLibrary[elementId].textButtonStatus = "Not Read";
+  } else {
+    bookLibrary[elementId].status = true;
+    bookLibrary[elementId].textButtonStatus = "Read";
+  }
+
+  removeChildren($booksContainer);
+  showBooks(bookLibrary);
 }
 
 function createCardBook(book) {
@@ -45,7 +71,8 @@ function createCardBook(book) {
   removeButton.textContent = "Delete";
 
   statusButton.setAttribute("class", "status-btn");
-  statusButton.textContent = "Read";
+  statusButton.onclick = (book) => changeButtonStatus(book);
+  statusButton.textContent = book.textButtonStatus;
 
   bookTitle.textContent = `"${book.title}"`;
   bookAuthor.textContent = book.author;
@@ -74,14 +101,6 @@ function addBookToLibrary(array) {
   clearField($pagesInput);
 
   event.preventDefault();
-}
-
-function deleteBook(event) {
-  const elementId = event.target.parentNode.parentNode.dataset.id;
-  bookLibrary.splice(elementId, 1);
-
-  removeChildren($booksContainer);
-  showBooks(bookLibrary);
 }
 
 function showBooks(array) {
