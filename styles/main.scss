@@ -39,6 +39,10 @@ form {
       border-radius: 0.3rem;
       font-size: 0.9rem;
       letter-spacing: 0.05rem;
+
+      @media (max-width: 365px) {
+        width: 220px;
+      }
     }
 
     #pages {
@@ -83,6 +87,21 @@ form {
     background-color: whitesmoke;
     border-radius: 0.3rem;
     border: 1px solid rgb(189, 189, 189);
+
+    @media (max-width: 680px) {
+      flex-direction: column;
+      text-align: center;
+      padding: 1rem;
+      font-size: 1.04rem;
+
+      p {
+        margin: 0.6rem;
+      }
+
+      .button-container {
+        margin-bottom: 0.5rem;
+      }
+    }
 
     .button-container {
       display: flex;
