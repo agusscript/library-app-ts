@@ -135,3 +135,19 @@ form {
     }
   }
 }
+
+footer {
+  font-size: 0.98rem;
+  font-weight: 600;
+  text-align: center;
+
+  p {
+    a {
+      color: rgb(1, 177, 180);
+    }
+
+    a:hover {
+      opacity: 0.8;
+    }
+  }
+}
