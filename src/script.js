@@ -57,6 +57,10 @@ function changeButtonStatus(book) {
   showBooks(bookLibrary);
 }
 
+function manageDeleteConfirmation(book) {
+  confirm("Delete this book?") ? deleteBook(book) : "";
+}
+
 function createCardBook(book) {
   const cardBook = document.createElement("div");
   const buttonsContainer = document.createElement("div");
@@ -74,7 +78,7 @@ function createCardBook(book) {
   textContainer.setAttribute("class", "text-container");
 
   removeButton.setAttribute("class", "remove-btn");
-  removeButton.onclick = (book) => deleteBook(book);
+  removeButton.onclick = (book) => manageDeleteConfirmation(book);
   removeButton.textContent = "Delete";
 
   statusButton.setAttribute("class", "status-btn");
@@ -106,8 +110,6 @@ function addBookToLibrary(array) {
   clearField($titleInput);
   clearField($authorInput);
   clearField($pagesInput);
-
-  event.preventDefault();
 }
 
 function showBooks(array) {
