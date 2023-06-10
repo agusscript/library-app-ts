@@ -2,6 +2,7 @@ const $titleInput = document.querySelector("#title");
 const $authorInput = document.querySelector("#author");
 const $pagesInput = document.querySelector("#pages");
 const $booksContainer = document.querySelector(".books-container");
+let error = false;
 
 class Book {
   constructor(id, title, author, pages, status) {
@@ -116,8 +117,32 @@ function showBooks(array) {
   });
 }
 
+function validateInput(input) {
+  if (input.value.length === 0) {
+    input.classList.add("error");
+    input.setAttribute("placeholder", "Required field");
+    error = true;
+  } else {
+    input.classList.remove("error");
+    input.setAttribute("placeholder", "");
+    error = false;
+  }
+}
+
+function validateForm() {
+  validateInput($titleInput);
+  validateInput($authorInput);
+  validateInput($pagesInput);
+
+  if (error === false) {
+    addBookToLibrary(bookLibrary);
+  }
+
+  event.preventDefault();
+}
+
 document.querySelector(".add-btn").onclick = () => {
-  addBookToLibrary(bookLibrary);
+  validateForm();
 };
 
 showBooks(bookLibrary);

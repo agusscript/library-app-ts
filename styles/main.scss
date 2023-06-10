@@ -45,6 +45,14 @@ form {
       }
     }
 
+    input::placeholder {
+      color: red;
+    }
+
+    .error {
+      border: 1px solid red;
+    }
+
     #pages {
       width: 80px;
     }
