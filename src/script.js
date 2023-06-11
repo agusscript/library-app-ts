@@ -2,7 +2,6 @@ const $titleInput = document.querySelector("#title");
 const $authorInput = document.querySelector("#author");
 const $pagesInput = document.querySelector("#pages");
 const $booksContainer = document.querySelector(".books-container");
-let error = false;
 
 class Book {
   constructor(id, title, author, pages, status) {
@@ -102,7 +101,7 @@ function addBookToLibrary(array) {
   const pages = $pagesInput.value;
   const newBook = new Book(id, title, author, pages);
 
-  array.push(newBook);
+  array.unshift(newBook);
 
   removeChildren($booksContainer);
   showBooks(bookLibrary);
@@ -119,24 +118,28 @@ function showBooks(array) {
   });
 }
 
-function validateInput(input) {
+function validateEmptyInput(input) {
+  let error = 0;
+
   if (input.value.length === 0) {
     input.classList.add("error");
     input.setAttribute("placeholder", "Required field");
-    error = true;
+    error = 1;
   } else {
     input.classList.remove("error");
     input.setAttribute("placeholder", "");
-    error = false;
+    error = 0;
   }
+
+  return error;
 }
 
 function validateForm() {
-  validateInput($titleInput);
-  validateInput($authorInput);
-  validateInput($pagesInput);
+  const titleError = validateEmptyInput($titleInput);
+  const authorError = validateEmptyInput($authorInput);
+  const pagesError = validateEmptyInput($pagesInput);
 
-  if (error === false) {
+  if (titleError + authorError + pagesError === 0) {
     addBookToLibrary(bookLibrary);
   }
 
