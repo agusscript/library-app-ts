@@ -15,6 +15,10 @@ main {
   }
 }
 
+button {
+  user-select: none;
+}
+
 form {
   margin-top: 2rem;
   display: flex;

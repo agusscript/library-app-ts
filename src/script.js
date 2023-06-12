@@ -134,12 +134,29 @@ function validateEmptyInput(input) {
   return error;
 }
 
-function validateForm() {
-  const titleError = validateEmptyInput($titleInput);
-  const authorError = validateEmptyInput($authorInput);
-  const pagesError = validateEmptyInput($pagesInput);
+function validatePages(input) {
+  let error = 0;
 
-  if (titleError + authorError + pagesError === 0) {
+  if (input.value < 1) {
+    input.classList.add("error");
+    input.setAttribute("placeholder", "Not valid pages");
+    error = 1;
+  } else {
+    input.classList.remove("error");
+    input.setAttribute("placeholder", "");
+    error = 0;
+  }
+
+  return error;
+}
+
+function validateForm() {
+  const titleEmpty = validateEmptyInput($titleInput);
+  const authorEmpty = validateEmptyInput($authorInput);
+  const pagesEmpty = validateEmptyInput($pagesInput);
+  const pagesNegative = validatePages($pagesInput);
+
+  if (titleEmpty + authorEmpty + pagesEmpty + pagesNegative === 0) {
     addBookToLibrary(bookLibrary);
   }
 
