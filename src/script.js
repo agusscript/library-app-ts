@@ -2,6 +2,7 @@ const $titleInput = document.querySelector("#title");
 const $authorInput = document.querySelector("#author");
 const $pagesInput = document.querySelector("#pages");
 const $booksContainer = document.querySelector(".books-container");
+let bookLibrary = [];
 
 class Book {
   constructor(id, title, author, pages, status) {
@@ -16,7 +17,7 @@ class Book {
   }
 }
 
-let bookLibrary = [
+let bookLibraryDefault = [
   new Book("", "The Little Prince", "Antoine de Saint-Exupéry", 85, true),
   new Book("", "The Picture of Dorian Gray", "Oscar Wilde", 272, false),
   new Book("", "The Knight in Rusty Armor", "Robert Fisher", 42, true),
@@ -36,9 +37,6 @@ function removeChildren(element) {
 function deleteBook(book) {
   const elementId = book.target.parentNode.parentNode.dataset.id;
   bookLibrary.splice(elementId, 1);
-
-  removeChildren($booksContainer);
-  showBooks(bookLibrary);
 }
 
 function changeButtonStatus(book) {
@@ -51,13 +49,19 @@ function changeButtonStatus(book) {
     bookLibrary[elementId].status = true;
     bookLibrary[elementId].textButtonStatus = "Read";
   }
+}
 
-  removeChildren($booksContainer);
-  showBooks(bookLibrary);
+function saveInLocalStorage(element) {
+  localStorage.setItem("library", JSON.stringify(element));
 }
 
 function manageDeleteConfirmation(book) {
-  confirm("Delete this book?") ? deleteBook(book) : "";
+  if (confirm("Delete this book?")) {
+    deleteBook(book);
+    saveInLocalStorage(bookLibrary);
+    removeChildren($booksContainer);
+    showBooks(bookLibrary);
+  }
 }
 
 function createCardBook(book) {
@@ -81,7 +85,12 @@ function createCardBook(book) {
   removeButton.textContent = "Delete";
 
   statusButton.setAttribute("class", "status-btn");
-  statusButton.onclick = (book) => changeButtonStatus(book);
+  statusButton.onclick = (book) => {
+    changeButtonStatus(book);
+    saveInLocalStorage(bookLibrary);
+    removeChildren($booksContainer);
+    showBooks(bookLibrary);
+  };
   statusButton.textContent = book.textButtonStatus;
 
   bookTitle.textContent = `"${book.title}"`;
@@ -103,9 +112,6 @@ function addBookToLibrary(array) {
 
   array.unshift(newBook);
 
-  removeChildren($booksContainer);
-  showBooks(bookLibrary);
-
   clearField($titleInput);
   clearField($authorInput);
   clearField($pagesInput);
@@ -116,6 +122,16 @@ function showBooks(array) {
     book.id = i;
     createCardBook(book);
   });
+}
+
+function checkLocalStorage() {
+  const libraryLocalStorage = JSON.parse(localStorage.getItem("library"));
+
+  if (!libraryLocalStorage) {
+    bookLibrary = bookLibraryDefault;
+  } else {
+    bookLibrary = libraryLocalStorage;
+  }
 }
 
 function validateEmptyInput(input) {
@@ -158,6 +174,10 @@ function validateForm() {
 
   if (titleEmpty + authorEmpty + pagesEmpty + pagesNegative === 0) {
     addBookToLibrary(bookLibrary);
+    removeChildren($booksContainer);
+    saveInLocalStorage(bookLibrary);
+    checkLocalStorage();
+    showBooks(bookLibrary);
   }
 
   event.preventDefault();
@@ -167,4 +187,5 @@ document.querySelector(".add-btn").onclick = () => {
   validateForm();
 };
 
+checkLocalStorage();
 showBooks(bookLibrary);
