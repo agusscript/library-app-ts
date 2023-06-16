@@ -13,7 +13,7 @@ class Book {
     this.status = status;
     this.textButtonStatus = status
       ? (this.textButtonStatus = "Read")
-      : (this.textButtonStatus = "Not Read");
+      : (this.textButtonStatus = "Unread");
   }
 }
 
@@ -44,7 +44,7 @@ function changeButtonStatus(book) {
 
   if (bookLibrary[elementId].status) {
     bookLibrary[elementId].status = false;
-    bookLibrary[elementId].textButtonStatus = "Not Read";
+    bookLibrary[elementId].textButtonStatus = "Unread";
   } else {
     bookLibrary[elementId].status = true;
     bookLibrary[elementId].textButtonStatus = "Read";
