@@ -37,9 +37,8 @@ function createCardBook(book: Book): void {
   const removeButton = document.createElement("button");
   const statusButton = document.createElement("button");
 
-  let bookDataId = Number(cardBook.dataset.id);
-  bookDataId = book.id;
   cardBook.setAttribute("class", "card-book");
+  cardBook.setAttribute("data-id", book.id.toString());
 
   buttonsContainer.setAttribute("class", "button-container");
   textContainer.setAttribute("class", "text-container");
